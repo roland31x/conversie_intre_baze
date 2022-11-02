@@ -39,7 +39,7 @@ namespace conversie_intre_baze
             try
             {
                 checked // cazul in care se fac calcule cu nr foarte mari, sa nu returneze o valoare corupta dintr-un overflow
-                {     
+                {
                     if (b1 > 10)
                     {
                         string convint, convfrac = "0";
@@ -214,17 +214,17 @@ namespace conversie_intre_baze
                             }
                             // acuma avem fractia in baza 10
                             int countperiod = 0;
-                            decimal[] fractierest = new decimal[15];
-                            while (fractie != 0 && countperiod < 15)
+                            decimal[] fractierest = new decimal[8];
+                            while (fractie != 0 && countperiod < 8)
                             {
                                 cifref = 10 * cifref + (int)Math.Floor(fractie * b2);
                                 fractie = (fractie * b2) - (int)Math.Floor(fractie * b2);
                                 fractierest[countperiod] = fractie;
                                 for (int i = 0; i <= countperiod - 1; i++)
                                 {
-                                    //Console.WriteLine(fractierest[0]);
+                                    //Console.WriteLine(fractierest[i]);
                                     //Console.WriteLine(fractie);
-                                    if (Decimal.Compare(fractierest[i], fractie) == 0) // de ce nu functioneaza?????
+                                    if (Decimal.Compare(fractierest[i], fractie) == 0) // uhhhh daca se converteste in baza 10 o fractie care este periodica ii problema, astea 2 nu vor fi egale deloc.
                                     {
                                         //Console.Write("da");
                                         perioada = true;
@@ -375,7 +375,7 @@ namespace conversie_intre_baze
                             }
                         }
                     }
-                }
+               }
             }
             catch (Exception)
             {
