@@ -18,9 +18,9 @@ namespace conversie_intre_baze
         }
         private static void BaseCalc()
         {
-            int b1, b2, intreg = 0, frac = 0;
+            int b1, b2, intreg = 0, frac = 0, fraccifre0 = 0;
             bool checkfrac = false;
-            string conv;
+            string conv, cifrefstring;
             bool perioada = false;
             char[] hex = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
             char[] fracchar = new char[] { ',', '.' };
@@ -103,14 +103,25 @@ namespace conversie_intre_baze
                             }
                             // acuma avem fractia in baza 10
                             int countperiod = 0;
-                            while (fractie != 0 && countperiod < 8)
+                            while (fractie != 0 && countperiod < 9) 
                             {
                                 cifref = 10 * cifref + (int)Math.Floor(fractie * 10);
                                 fractie = (fractie * 10) - (int)Math.Floor(fractie * 10);
                                 countperiod++;
-                                //Console.WriteLine(cifref);
+                                //Console.WriteLine(countperiod);
                             }
-                            conv = string.Concat(Convert.ToString(intreg), ',', Convert.ToString(cifref)); // returneaza un nr in baza 10 cu virgula fixa
+                            cifrefstring = Convert.ToString(cifref); // necesar ca am calculat in double si se pierd 0-uri dupa virgula. 
+                            while (countperiod != Convert.ToString(cifref).Length)
+                            {
+                                fraccifre0++;
+                                countperiod--;
+                            }
+                            while (fraccifre0 != 0)
+                            {
+                                cifrefstring = string.Concat("0",Convert.ToString(cifref));
+                                fraccifre0--;
+                            }
+                            conv = string.Concat(Convert.ToString(intreg), ',', cifrefstring); // returneaza un nr in baza 10 cu virgula fixa
                         }
                         else
                         {
@@ -223,7 +234,18 @@ namespace conversie_intre_baze
                                 if (perioada) break;
                                 countperiod++;
                             }
-                            Console.Write(cifref);
+                            cifrefstring = Convert.ToString(cifref);  // necesar ca am calculat in int si se pierd 0-uri dupa virgula
+                            while (countperiod != Convert.ToString(cifref).Length)
+                            {
+                                fraccifre0++;
+                                countperiod--;
+                            }
+                            while (fraccifre0 != 0)
+                            {
+                                cifrefstring = string.Concat("0", Convert.ToString(cifref));
+                                fraccifre0--;
+                            }
+                            Console.Write(cifrefstring);
                         }
                     }
                     if (b2 > 10)
