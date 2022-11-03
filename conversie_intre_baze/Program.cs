@@ -30,7 +30,8 @@ namespace conversie_intre_baze
             b2 = BaseCheck2();
             Console.WriteLine("Introduceti numarul pe care vreti sa il convertiti: ");
             conv = CONV(ref b1, ref hex);
-            Console.WriteLine($"\nNumarul {conv} din baza {b1} in baza {b2} este: \n");
+            Console.Clear();
+            Console.WriteLine($"Numarul {conv} din baza {b1} in baza {b2} este: \n");
             if (conv.Contains('-')) // in caz de nr negativ, folosim semnul negativ in fata nr convertit
             {
                 conv = conv.Replace("-", "");
@@ -390,8 +391,9 @@ namespace conversie_intre_baze
         }
         private static string CONV(ref int b1, ref char[] hex) 
         {
-            tryagain:           
+        tryagain:
             string conv = Console.ReadLine();
+            conv = conv.ToLower();
             string convaux = conv;
             char[] sep = new char[] { ',', '.' };
             bool fractie = false;
